@@ -1,0 +1,22 @@
+{
+    "name": "nick/socialmediastation",
+  	"type": "wordpress-plugin",
+  	"description": "Provides Commerce integration for PayPal.",
+  	"homepage": "https://wordpress.org/plugins/social-media-station/",
+  	"license": "GPL-2.0-or-later",
+    "autoload": {
+        "psr-4": {
+            "Nick\\SocialMediaStation\\": "app/"
+        }
+    },
+    "authors": [
+        {
+            "name": "nickbahson",
+            "email": "nijoba33@gmail.com"
+        }
+    ],
+    "require": {
+        "facebook/graph-sdk": "^5.0",
+        "abraham/twitteroauth": "^4.0"
+    }
+}

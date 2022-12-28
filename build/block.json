@@ -1,0 +1,17 @@
+{
+  "$schema": "https://schemas.wp.org/trunk/block.json",
+  "apiVersion": 2,
+  "name": "social-media-station/content-block",
+  "version": "0.1.0",
+  "title": "Social Media Station",
+  "category": "widgets",
+  "icon": "smiley",
+  "description": "Include data related to social media post.",
+  "supports": {
+    "html": false
+  },
+  "textdomain": "social-media-station",
+  "editorScript": "file:./index.js",
+  "editorStyle": "file:./index.css",
+  "style": "file:./style-index.css"
+}
