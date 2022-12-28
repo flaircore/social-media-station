@@ -1,7 +1,7 @@
 {
     "name": "nick/socialmediastation",
   	"type": "wordpress-plugin",
-  	"description": "Provides Commerce integration for PayPal.",
+  	"description": "Manage social media posts on a single platform.",
   	"homepage": "https://wordpress.org/plugins/social-media-station/",
   	"license": "GPL-2.0-or-later",
     "autoload": {

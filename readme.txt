@@ -2,6 +2,7 @@
 Contributors:      bahson
 Donate link:       https://flaircore.com/flair-core/paypal_payment
 Tags:              social media
+Description:       Manage social media posts on a single platform.
 Tested up to:      6.1
 Stable tag:        0.1.0
 Requires PHP:      7.0
@@ -22,7 +23,10 @@ This plugin allows you to schedule social media posts from within your WordPress
 
 == Configuration ==
 1. Under Plugin name, click the settings link to reveal the configuration form.
-For twitter, you will be required to create an app and note the:
+For twitter, you will be required to login and create an account @ https://developer.twitter.com/en/docs/platform-overview
+
+After that create an app and note the **Consumer Keys:** (key and secret) and the
+**Authentication Tokens:** (Token and Secret).
 
 
 == Screenshots ==
