@@ -1,6 +1,6 @@
 <?php
 
-namespace Drupal\social_deck\Helpers;
+namespace Nick\SocialMediaStation\Helpers\Clients;
 
 /**
  * curl --location --request POST 'https://open-api.tiktok.com/share/video/upload/?access_token=<ACCESS_TOKEN>&open_id=<OPEN_ID>' \
@@ -24,31 +24,27 @@ class TiktokClient {
 	}
 
 	final public function post($content){
-		$data = array (
-			'video'=> '/Users/tiktok/Downloads/video.mp4'
+
+		$url = self::BASE_URL. '?access_token=<ACCESS_TOKEN>&open_id=<OPEN_ID>';
+
+		$args = array(
+			'body'        =>  array (
+				'video'=> '/Users/tiktok/Downloads/video.mp4'
+			),
+			'timeout'     => '5',
+			'redirection' => '5',
+			'httpversion' => '1.0',
+			'blocking'    => true,
+			'headers'     => array(
+				'Authorization' => 'Basic ' . base64_encode( '@TODO' . ':' . '@TODO' )
+			),
+			'cookies'     => array(),
 		);
 
-		$ch = curl_init();
+		$res = wp_remote_get( $url, $args );
 
-		$options = array (
-			CURLOPT_URL => self::BASE_URL. '?access_token=<ACCESS_TOKEN>&open_id=<OPEN_ID>',
-			CURLOPT_POST => 1,// make async callback function or Guzzle
-			CURLOPT_POSTFIELDS => $data,
-			CURLOPT_RETURNTRANSFER => 1
-		);
+		// @TODO:: get post id from tiktok and save.
 
-		curl_setopt_array($ch, $options);
-
-		$res = curl_exec($ch);
-		$err = curl_error($ch);
-
-		curl_close($ch);
-
-		if ($err) {
-			throw new \Exception("cURL Error #:".$err);
-		} else {
-			return json_decode($res, true);
-		}
 
 	}
 
