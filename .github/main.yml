@@ -1,0 +1,24 @@
+name: Deploy to WordPress.org
+
+on:
+  push:
+    tags:
+      - '*'
+    branches:
+      - main
+
+  workflow_dispatch:
+
+jobs:
+  deploy-plugin:
+    name: Deploy Plugin to WordPress
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@main
+      - name: Social Media Station WordPress Plugin Deploy
+        uses: 10up/action-wordpress-plugin-deploy@stable
+        env:
+          SVN_PASSWORD: ${{ secrets.SVN_PASSWORD }}
+          SVN_USERNAME: ${{ secrets.SVN_USERNAME }}
+          SLUG: social-media-station
+          VERSION: 0.1.0

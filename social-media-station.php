@@ -26,6 +26,7 @@ if ( ! defined( 'WPINC' ) ) {
 	die;
 }
 
+
 define( 'SOCIAL_MEDIA_STATION_PLUGIN_DIR', __DIR__ );
 /**
 	* Load composer dependencies.
@@ -45,6 +46,45 @@ if (!class_exists('Social_Media_Station')) {
 		}
 
 		private function setup(){
+
+			if ( ! function_exists( 'sms_fs' ) ) {
+				// Create a helper function for easy SDK access.
+				function sms_fs() {
+					global $sms_fs;
+
+					if ( ! isset( $sms_fs ) ) {
+						// Include Freemius SDK.
+						require_once dirname(__FILE__) . '/freemius/start.php';
+
+						$sms_fs = fs_dynamic_init( array(
+								'id'                  => '11728',
+								'slug'                => 'social-media-station',
+								'type'                => 'plugin',
+								'public_key'          => 'pk_2cb7eb7698dd5f56c75e42dd78fcd',
+								'is_premium'          => true,
+								'premium_suffix'      => 'Custom intergration',
+							// If your plugin is a serviceware, set this option to false.
+								'has_premium_version' => true,
+								'has_addons'          => false,
+								'has_paid_plans'      => true,
+								'menu'                => array(
+										'slug'           => 'social_media_station',
+								),
+							// Set the SDK to work in a sandbox mode (for development & testing).
+							// IMPORTANT: MAKE SURE TO REMOVE SECRET KEY BEFORE DEPLOYMENT.
+								'secret_key'          => 'undefined',
+						) );
+					}
+
+					return $sms_fs;
+				}
+
+				// Init Freemius.
+				sms_fs();
+				// Signal that SDK was initiated.
+				do_action( 'sms_fs_loaded' );
+			}
+
 			register_activation_hook ( __FILE__ , array ( $this , 'social_media_station_activate_setup' ) );
 
 			register_deactivation_hook ( __FILE__ , array ( $this , 'social_media_station_deactivate_cleanup' ) );
@@ -116,6 +156,10 @@ if (!class_exists('Social_Media_Station')) {
 			* @return void
 			*/
 		public function social_media_station_config_options() {
+
+			if ( ! current_user_can( 'manage_options' ) ) {
+				return;
+			}
 			if (isset($_POST['configs'])) {
 				// Sanitize all text input values.
 				$data = $this->sanitizeConfigs($_POST['configs']);
